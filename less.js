@@ -22,7 +22,11 @@ if (typeof window !== 'undefined') {
           // Success!
           var data = request.responseText;
 
-          var options = window.less || {};
+          // Try to find global var options from
+          // window.less.globalVars or window.less.options.globalVars
+          var options = window.less && (less.globalVars ? less : less.options);
+          options = options || {};
+          
           options.filename = url;
           options.rootpath = url.replace(/[^\/]*$/,'');
 
